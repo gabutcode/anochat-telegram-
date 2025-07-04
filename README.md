@@ -1,48 +1,65 @@
-# 🤖 Anochat Telegram Bot
+## 🚀 Cara Pasang & Jalankan Bot Anochat (di Termux Android)
 
-**Anochat** adalah bot Telegram Anonymous Chat yang memungkinkan pengguna untuk terhubung secara acak dengan orang lain berdasarkan gender. Bot ini juga dilengkapi fitur Premium, media (foto dan suara), serta admin tools untuk monitoring pengguna.
+Ikuti langkah-langkah berikut untuk menjalankan bot ini di HP Android menggunakan Termux:
 
-Bot ini dibuat untuk digunakan di Termux atau server Linux ringan, cocok untuk komunitas atau project pribadi.
+### 1. Instal Termux
 
----
-
-## ✨ Fitur Utama
-
-- Chat anonymous berdasarkan gender (Cowok / Cewek)
-- Kirim pesan teks, gambar, dan voice note
-- Fitur Premium (unlock media tanpa batas, prioritas match)
-- Panel admin langsung dari bot untuk cek user, partner, dan data lainnya
-- Penyimpanan media lokal (terpisah per user)
-- Tidak perlu database eksternal (menggunakan SQLite bawaan)
+- Disarankan pakai Termux dari [F-Droid](https://f-droid.org/en/packages/com.termux/)
+- Jangan install dari Play Store, karena versinya sudah tidak update
 
 ---
 
-## 🔧 Cara Instalasi (di Termux)
+### 2. Update & Pasang Git dan Python
 
-1. **Install Termux** dari F-Droid atau Play Store.
-2. Buka Termux dan jalankan:
-   ```bash
-   pkg update && pkg upgrade
-   pkg install git python -y
+```bash
+pkg update && pkg upgrade
+pkg install git python -y
+
+
+---
+
+3. Clone Project dari GitHub
+
 git clone https://github.com/gabutcode/anochat-telegram-.git
 cd anochat-telegram-
+
+
+---
+
+4. Pasang Semua Kebutuhan Python
+
 pip install -r requirements.txt
+
+
+---
+
+5. Edit Token Bot dan ID Admin
+
+Buka file bot.py dan ubah bagian ini:
+
+TOKEN = "ISI_TOKEN_BOT_KAMU"
+ADMIN_ID = 123456789  # Ganti dengan ID Telegram kamu
+
+> Untuk tahu ID kamu, kamu bisa cek pakai bot: @userinfobot
+
+
+
+
+---
+
+6. Jalankan Bot
+
 python bot.py
 
-jangan lupa untuk edit token dan id
-TOKEN = "ISI_TOKEN_BOT_KAMU"
-ADMIN_ID = 123456789
+Kalau muncul error seperti ini:
 
-📌 Catatan
+RuntimeError: This event loop is already running
 
-Bot ini tidak menyimpan isi chat
+Maka ubah bagian paling bawah bot.py menjadi:
 
-Semua foto dan VN hanya disimpan untuk admin monitoring
+import nest_asyncio
+nest_asyncio.apply()
+asyncio.get_event_loop().run_until_complete(main())
 
-Gunakan dengan bijak. Bot ini bukan untuk spam, scam, atau penyalahgunaan lainnya.
 
-📜 Lisensi
-
-Dikembangkan oleh GabutCode
-Bebas digunakan untuk pembelajaran dan proyek pribadi.
-Tidak diperbolehkan untuk komersialisasi tanpa izin.
+---
